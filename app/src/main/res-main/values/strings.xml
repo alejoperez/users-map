@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">UsersMap</string>
     <string name="title_activity_users_map">Mapa</string>
+    <string name="network_error">Ocurrió un problema durante la conexión. Revisa tu conexión e inténtalo nuevamente.</string>
+    <string name="map_require_location">Se requiere conocer tu ubicación para mostrarte el usuario más cercano y más lejano</string>
 </resources>

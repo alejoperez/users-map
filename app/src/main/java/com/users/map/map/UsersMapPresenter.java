@@ -26,6 +26,21 @@ public class UsersMapPresenter implements IUsersMapPresenter {
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return UserRepository.getInstance(usersMapVIew.getViewContext()).getUsers();
+    }
+
+    @Override
+    public User getFarthestUser() {
+        return UserRepository.getInstance(usersMapVIew.getViewContext()).getFarthestUser();
+    }
+
+    @Override
+    public User getNearestUser() {
+        return UserRepository.getInstance(usersMapVIew.getViewContext()).getNearestUser();
+    }
+
+    @Override
     public User getRandomUser(List<User> userList) {
         int size = userList.size();
         return userList.get(new Random().nextInt(size));

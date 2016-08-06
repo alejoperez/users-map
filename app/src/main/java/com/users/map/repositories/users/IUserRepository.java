@@ -11,4 +11,5 @@ public interface IUserRepository {
     User getNearestUser();
     User getFarthestUser();
     void saveUsers(List<User> userList);
+    List<User> getUsers();
 }

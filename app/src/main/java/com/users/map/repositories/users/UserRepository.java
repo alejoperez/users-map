@@ -2,11 +2,15 @@ package com.users.map.repositories.users;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.users.map.map.IUsersMapPresenter;
+import com.users.map.repositories.location.LocationRepository;
 import com.users.map.rest.ServiceGenerator;
 import com.users.map.rest.users.IUsersService;
 import com.users.map.storage.database.RealmManager;
 import com.users.map.storage.model.User;
+import com.users.map.storage.model.UserLocation;
+import com.users.map.util.GeoUtil;
 
 import java.util.List;
 
@@ -54,15 +58,50 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public List<User> getUsers() {
+        return RealmManager.getInstance(context).getRealm().where(User.class).findAll();
+    }
+
+    @Override
     public User getFarthestUser() {
-        //TODO:
-        return null;
+        UserLocation currentLocation = LocationRepository.getInstance(context).getLocation();
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+        List<User> userList = getUsers();
+
+        User farthestUser = null;
+        float distance = 0;
+
+        for(User user : userList) {
+            LatLng latLng = new LatLng(user.getAddress().getGeo().getLat(),user.getAddress().getGeo().getLng());
+            float userDistance = GeoUtil.getDistanceBetweenLocationsInMeters(currentLatLng,latLng);
+            if (userDistance > distance) {
+                distance = userDistance;
+                farthestUser = user;
+            }
+        }
+
+        return farthestUser;
     }
 
     @Override
     public User getNearestUser() {
-        //TODO:
-        return null;
+        UserLocation currentLocation = LocationRepository.getInstance(context).getLocation();
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+        List<User> userList = getUsers();
+
+        User nearestUser = null;
+        float distance = Float.MAX_VALUE;
+
+        for(User user : userList) {
+            LatLng latLng = new LatLng(user.getAddress().getGeo().getLat(),user.getAddress().getGeo().getLng());
+            float userDistance = GeoUtil.getDistanceBetweenLocationsInMeters(currentLatLng,latLng);
+            if (userDistance < distance) {
+                distance = userDistance;
+                nearestUser = user;
+            }
+        }
+
+        return nearestUser;
     }
 
     @Override

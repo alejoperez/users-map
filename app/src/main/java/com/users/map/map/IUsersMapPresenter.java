@@ -10,4 +10,7 @@ public interface IUsersMapPresenter {
     void onUsersSuccess(List<User> userList);
     void onUsersFail();
     User getRandomUser(List<User> userList);
+    List<User> getAllUsers();
+    User getNearestUser();
+    User getFarthestUser();
 }

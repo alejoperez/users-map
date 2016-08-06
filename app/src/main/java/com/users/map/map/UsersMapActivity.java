@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.users.map.R;
@@ -22,6 +23,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
 
     private static final int REQUEST_CODE_LOCATION = 263;
+    private static final float ZOOM = 14;
 
     private static final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -63,7 +65,22 @@ public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnM
 
     @Override
     public void onUsersSuccess(List<User> userList) {
-        //TODO: process users
+        User user = presenter.getRandomUser(userList);
+        showUser(user);
+    }
+
+    private void showUser(User user) {
+        LatLng latLng = new LatLng(user.getAddress().getGeo().getLat(), user.getAddress().getGeo().getLng());
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(ZOOM).build();
+
+        MarkerOptions marker = new MarkerOptions();
+        marker.title(user.getName());
+        marker.snippet(user.getAddress().toString());
+        marker.position(new LatLng(user.getAddress().getGeo().getLat(), user.getAddress().getGeo().getLng()));
+
+        googleMap.addMarker(marker);
+
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override
@@ -74,12 +91,7 @@ public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnM
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
-
-        //TODO: show random user
-        LatLng sydney = new LatLng(-34, 151);
-        this.googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        presenter.loadUsersFromServer();
     }
 
     @Override

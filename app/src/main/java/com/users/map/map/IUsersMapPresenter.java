@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IUsersMapPresenter {
     void loadCurrentLocationFromIP();
-    void getUsers();
+    void loadUsersFromServer();
     void onUsersSuccess(List<User> userList);
     void onUsersFail();
+    User getRandomUser(List<User> userList);
 }

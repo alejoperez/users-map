@@ -60,4 +60,9 @@ public class Address extends RealmObject {
     public void setGeo(Geolocation geo) {
         this.geo = geo;
     }
+
+    @Override
+    public String toString() {
+        return city + ": " + geo.getLat() + "," + geo.getLng();
+    }
 }

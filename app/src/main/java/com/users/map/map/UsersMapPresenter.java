@@ -5,6 +5,7 @@ import com.users.map.repositories.users.UserRepository;
 import com.users.map.storage.model.User;
 
 import java.util.List;
+import java.util.Random;
 
 public class UsersMapPresenter implements IUsersMapPresenter {
 
@@ -20,8 +21,14 @@ public class UsersMapPresenter implements IUsersMapPresenter {
     }
 
     @Override
-    public void getUsers() {
+    public void loadUsersFromServer() {
         UserRepository.getInstance(usersMapVIew.getViewContext()).getUsersFromServer(this);
+    }
+
+    @Override
+    public User getRandomUser(List<User> userList) {
+        int size = userList.size();
+        return userList.get(new Random().nextInt(size));
     }
 
     @Override

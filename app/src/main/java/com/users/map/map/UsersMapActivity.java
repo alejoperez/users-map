@@ -3,6 +3,7 @@ package com.users.map.map;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
@@ -27,7 +28,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
 
     private static final int REQUEST_CODE_LOCATION = 263;
-    private static final float ZOOM = 5;
+
+    private static final float ZOOM_IN = 5;
+    private static final float ZOOM_OUT = 1;
+
+    public static final int ZOOM_OUT_IN_MILLIS = 1500;
 
     private static final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -75,18 +80,26 @@ public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnM
         showUser(user);
     }
 
-    private void showUser(User user) {
-        LatLng latLng = new LatLng(user.getAddress().getGeo().getLat(), user.getAddress().getGeo().getLng());
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(ZOOM).build();
-
+    private void showUser(final User user) {
         MarkerOptions marker = new MarkerOptions();
         marker.title(user.getName());
         marker.snippet(user.getAddress().toString());
         marker.position(new LatLng(user.getAddress().getGeo().getLat(), user.getAddress().getGeo().getLng()));
 
-        googleMap.addMarker(marker);
+        googleMap.addMarker(marker).showInfoWindow();
 
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        CameraPosition cameraZoomOut = new CameraPosition.Builder().target(googleMap.getCameraPosition().target).zoom(ZOOM_OUT).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraZoomOut));
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                LatLng latLng = new LatLng(user.getAddress().getGeo().getLat(), user.getAddress().getGeo().getLng());
+                CameraPosition cameraZoomIn = new CameraPosition.Builder().target(latLng).zoom(ZOOM_IN).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraZoomIn));
+            }
+        }, ZOOM_OUT_IN_MILLIS);
+
     }
 
     @OnClick(R.id.map_random_button)
@@ -133,6 +146,8 @@ public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnM
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        int padding = (int) getResources().getDimension(R.dimen.map_padding);
+        this.googleMap.setPadding(0,0,0,padding);
         presenter.loadUsersFromServer();
     }
 

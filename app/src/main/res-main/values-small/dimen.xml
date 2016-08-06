@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- MARGIN -->
-    <dimen name="margin">7dp</dimen>
+    <!-- PADDING -->
+    <dimen name="map_padding">90dp</dimen>
 
     <!-- TEXT SIZE -->
     <dimen name="text_view_size_small">12sp</dimen>

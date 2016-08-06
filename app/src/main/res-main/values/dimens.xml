@@ -3,8 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- MARGIN -->
-    <dimen name="margin">10dp</dimen>
+    <!-- PADDING -->
+    <dimen name="map_padding">90dp</dimen>
 
     <!-- TEXT SIZE -->
     <dimen name="text_view_size_small">13sp</dimen>

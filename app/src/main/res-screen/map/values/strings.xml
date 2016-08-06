@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="map_require_location">Se requiere conocer tu ubicación para mostrarte el usuario más cercano y más lejano</string>
+    <string name="map_random_button">Usuario aleatorio</string>
+    <string name="map_options">Usuario lejano/cercano</string>
+    <string name="map_select_options">Selecciona una opción</string>
+
+    <array name="map_options">
+        <item>Usuario más lejano</item>
+        <item>Usuario más cercano</item>
+    </array>
+</resources>

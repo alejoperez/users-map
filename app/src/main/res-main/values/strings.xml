@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">UsersMap</string>
     <string name="title_activity_users_map">Mapa</string>
+    <string name="network_error">Ocurrió un problema durante la conexión. Revisa tu conexión e inténtalo nuevamente.</string>
 </resources>

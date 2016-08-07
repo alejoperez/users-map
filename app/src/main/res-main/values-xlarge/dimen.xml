@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PADDING -->
+    <dimen name="map_padding">95dp</dimen>
+
+    <!-- TEXT SIZE -->
+    <dimen name="text_view_size_small">18sp</dimen>
+    <dimen name="text_view_size">21sp</dimen>
+    <dimen name="text_view_size_large">25sp</dimen>
+    <dimen name="text_view_size_xlarge">29sp</dimen>
+
+</resources>

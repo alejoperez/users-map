@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class UsersMapActivity extends BaseActivity implements IUsersMapVIew, OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
+public class UsersMapActivity extends BaseActivity implements IUsersMapView, OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
 
     private static final int REQUEST_CODE_LOCATION = 263;
 

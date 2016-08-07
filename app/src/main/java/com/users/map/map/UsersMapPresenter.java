@@ -9,9 +9,9 @@ import java.util.Random;
 
 public class UsersMapPresenter implements IUsersMapPresenter {
 
-    private IUsersMapVIew usersMapVIew;
+    private IUsersMapView usersMapVIew;
 
-    public UsersMapPresenter(IUsersMapVIew usersMapVIew) {
+    public UsersMapPresenter(IUsersMapView usersMapVIew) {
         this.usersMapVIew = usersMapVIew;
     }
 

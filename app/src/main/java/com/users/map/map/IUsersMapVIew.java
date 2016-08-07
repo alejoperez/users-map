@@ -5,7 +5,7 @@ import com.users.map.storage.model.User;
 
 import java.util.List;
 
-public interface IUsersMapVIew extends IBaseView {
+public interface IUsersMapView extends IBaseView {
     void init();
     void initView();
     void onUsersSuccess(List<User> userList);

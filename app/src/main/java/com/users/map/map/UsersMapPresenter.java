@@ -9,35 +9,35 @@ import java.util.Random;
 
 public class UsersMapPresenter implements IUsersMapPresenter {
 
-    private IUsersMapView usersMapVIew;
+    private IUsersMapView usersMapView;
 
-    public UsersMapPresenter(IUsersMapView usersMapVIew) {
-        this.usersMapVIew = usersMapVIew;
+    public UsersMapPresenter(IUsersMapView usersMapView) {
+        this.usersMapView = usersMapView;
     }
 
     @Override
     public void loadCurrentLocationFromIP() {
-        LocationRepository.getInstance(usersMapVIew.getViewContext()).initLocationFromIP();
+        LocationRepository.getInstance(usersMapView.getViewContext()).initLocationFromIP();
     }
 
     @Override
     public void loadUsersFromServer() {
-        UserRepository.getInstance(usersMapVIew.getViewContext()).getUsersFromServer(this);
+        UserRepository.getInstance(usersMapView.getViewContext()).getUsersFromServer(this);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return UserRepository.getInstance(usersMapVIew.getViewContext()).getUsers();
+        return UserRepository.getInstance(usersMapView.getViewContext()).getUsers();
     }
 
     @Override
     public User getFarthestUser() {
-        return UserRepository.getInstance(usersMapVIew.getViewContext()).getFarthestUser();
+        return UserRepository.getInstance(usersMapView.getViewContext()).getFarthestUser();
     }
 
     @Override
     public User getNearestUser() {
-        return UserRepository.getInstance(usersMapVIew.getViewContext()).getNearestUser();
+        return UserRepository.getInstance(usersMapView.getViewContext()).getNearestUser();
     }
 
     @Override
@@ -48,11 +48,11 @@ public class UsersMapPresenter implements IUsersMapPresenter {
 
     @Override
     public void onUsersSuccess(List<User> userList) {
-        usersMapVIew.onUsersSuccess(userList);
+        usersMapView.onUsersSuccess(userList);
     }
 
     @Override
     public void onUsersFail() {
-        usersMapVIew.onUsersFail();
+        usersMapView.onUsersFail();
     }
 }
